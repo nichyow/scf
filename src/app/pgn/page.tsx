@@ -90,6 +90,16 @@ export default function PgnPortal() {
     }
   }
 
+  async function reset() {
+    setBusyId("reset");
+    try {
+      await api.reset();
+      refresh();
+    } finally {
+      setBusyId(null);
+    }
+  }
+
   const pending = state.invoices.filter((i) => i.status === "diajukan");
   const approved = state.invoices.filter((i) => i.status === "disetujui");
   const notifications = state.notifications.filter((n) => n.recipientRole === "pgn");
@@ -99,11 +109,20 @@ export default function PgnPortal() {
 
   return (
     <main className="mx-auto max-w-[1180px] px-6 py-10">
-      <SectionHead
-        eyebrow="Portal PGN"
-        title="Verifikasi & approval invoice vendor"
-        desc="Three-way matching PO, bukti penerimaan, dan invoice sebelum settlement otomatis berjalan."
-      />
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <SectionHead
+          eyebrow="Portal PGN"
+          title="Verifikasi & approval invoice vendor"
+          desc="Three-way matching PO, bukti penerimaan, dan invoice sebelum settlement otomatis berjalan."
+        />
+        <button
+          onClick={reset}
+          disabled={busyId === "reset"}
+          className="rounded border border-line-strong bg-paper-raised px-3 py-1.5 text-[12.5px] font-medium text-ink-soft hover:text-ink disabled:opacity-50"
+        >
+          Reset data demo
+        </button>
+      </div>
 
       <div className="mb-8 grid gap-3 sm:grid-cols-3">
         <StatTile label="Menunggu approval" value={String(pending.length)} sub={rupiah(totalDiajukan)} />

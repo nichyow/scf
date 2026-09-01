@@ -12,6 +12,7 @@ import { SimulatorCalculator } from "./SimulatorCalculator";
 export default function VendorPortal() {
   const [state, setState] = useState<FullState | null>(null);
   const [vendorId, setVendorId] = useState<string>("v1");
+  const [busy, setBusy] = useState(false);
 
   const refresh = useCallback(() => {
     api.getState().then(setState);
@@ -23,6 +24,16 @@ export default function VendorPortal() {
 
   if (!state) {
     return <div className="mx-auto max-w-[1180px] px-6 py-14 text-ink-faint">Memuat data…</div>;
+  }
+
+  async function reset() {
+    setBusy(true);
+    try {
+      await api.reset();
+      refresh();
+    } finally {
+      setBusy(false);
+    }
   }
 
   const vendor = state.vendors.find((v) => v.id === vendorId)!;
@@ -43,20 +54,29 @@ export default function VendorPortal() {
           title="Modal kerja & pencairan invoice"
           desc="Ajukan pembiayaan berbasis PO, submit invoice, dan pantau status pencairan secara transparan."
         />
-        <label className="text-[13px]">
-          <span className="mb-1 block text-ink-faint">Login sebagai</span>
-          <select
-            value={vendorId}
-            onChange={(e) => setVendorId(e.target.value)}
-            className="rounded border border-line-strong bg-paper-raised px-3 py-1.5 text-[13.5px] outline-none focus:border-gas"
+        <div className="flex items-end gap-3">
+          <label className="text-[13px]">
+            <span className="mb-1 block text-ink-faint">Login sebagai</span>
+            <select
+              value={vendorId}
+              onChange={(e) => setVendorId(e.target.value)}
+              className="rounded border border-line-strong bg-paper-raised px-3 py-1.5 text-[13.5px] outline-none focus:border-gas"
+            >
+              {state.vendors.map((v) => (
+                <option key={v.id} value={v.id}>
+                  {v.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button
+            onClick={reset}
+            disabled={busy}
+            className="rounded border border-line-strong bg-paper-raised px-3 py-1.5 text-[12.5px] font-medium text-ink-soft hover:text-ink disabled:opacity-50"
           >
-            {state.vendors.map((v) => (
-              <option key={v.id} value={v.id}>
-                {v.name}
-              </option>
-            ))}
-          </select>
-        </label>
+            Reset data demo
+          </button>
+        </div>
       </div>
 
       <div className="mb-8 grid gap-3 sm:grid-cols-3">
