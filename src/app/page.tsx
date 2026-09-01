@@ -1,69 +1,87 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Card } from "@/components/ui";
+
+const portals = [
+  {
+    href: "/vendor",
+    label: "Portal Vendor",
+    role: "Vendor Tier 1 & 2 PGN",
+    desc: "Ajukan modal kerja berbasis PO, submit invoice, pantau plafon KMK, dan simulasikan opsi pencairan.",
+  },
+  {
+    href: "/pgn",
+    label: "Portal PGN",
+    role: "Anchor",
+    desc: "Verifikasi three-way matching PO – bukti penerimaan – invoice, lalu approve untuk memicu settlement.",
+  },
+  {
+    href: "/bank",
+    label: "Ops Bank Mandiri",
+    role: "Kopra Supplier Financing",
+    desc: "Rekonsiliasi seluruh pencairan KMK, fee income, dan status pelunasan PGN ke Mandiri.",
+  },
+];
+
+const stages = [
+  "Kontrak / PO",
+  "Pengajuan KMK",
+  "Verifikasi & pencairan",
+  "Submit invoice",
+  "Approval PGN",
+  "Settlement otomatis",
+  "PGN bayar Mandiri",
+  "Sinkronisasi status",
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="mx-auto max-w-[1180px] px-6 py-14">
+      <div className="mb-14 max-w-[62ch] border-b border-line pb-10">
+        <div className="mb-3 flex items-center gap-2 font-mono text-[11px] tracking-widest text-gas uppercase">
+          <span className="inline-block h-px w-5 bg-gas" />
+          Prototipe · ODP 352 Wholesale Business Case
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <h1 className="text-4xl leading-[1.15]">
+          Aktivasi Kopra Supplier Financing dengan PGN sebagai anchor baru
+        </h1>
+        <p className="mt-4 text-[16.5px] text-ink-soft">
+          Simulasi tiga portal — vendor, PGN, dan operasional Bank Mandiri — yang menjalankan alur
+          pembiayaan rantai pasok dari pengajuan PO financing hingga pelunasan, sesuai PRD. Data
+          bersifat dummy dan tersimpan di memori server untuk keperluan demo.
+        </p>
+      </div>
+
+      <div className="mb-14 grid gap-4 sm:grid-cols-3">
+        {portals.map((p) => (
+          <Link key={p.href} href={p.href} className="group block">
+            <Card className="h-full px-5 py-5 transition-shadow group-hover:shadow-[0_2px_4px_rgba(20,33,61,0.08),0_14px_28px_rgba(20,33,61,0.08)]">
+              <div className="mb-3 text-[11px] font-semibold tracking-wide text-accent uppercase">{p.role}</div>
+              <h2 className="mb-2 text-lg">{p.label}</h2>
+              <p className="text-[13.5px] text-ink-soft">{p.desc}</p>
+              <div className="mt-4 text-[13px] font-medium text-gas group-hover:underline">
+                Buka portal →
+              </div>
+            </Card>
+          </Link>
+        ))}
+      </div>
+
+      <div>
+        <div className="mb-5 text-[11px] font-semibold tracking-widest text-ink-faint uppercase">
+          Alur bisnis end-to-end
         </div>
-      </main>
-    </div>
+        <ol className="flex flex-wrap gap-2">
+          {stages.map((s, i) => (
+            <li key={s} className="flex items-center gap-2">
+              <span className="flex items-center gap-2 rounded-full border border-line-strong bg-paper-raised px-3 py-1.5 text-[12.5px]">
+                <span className="num font-semibold text-gas">{i}</span>
+                <span className="text-ink-soft">{s}</span>
+              </span>
+              {i < stages.length - 1 && <span className="text-ink-faint">→</span>}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </main>
   );
 }
