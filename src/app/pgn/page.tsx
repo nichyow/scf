@@ -77,7 +77,7 @@ export default function PgnPortal() {
   }, [refresh]);
 
   if (!state) {
-    return <div className="mx-auto max-w-[1180px] px-6 py-14 text-ink-faint">Memuat data…</div>;
+    return <div className="mx-auto max-w-[1180px] px-4 py-10 sm:px-6 sm:py-14 text-ink-faint">Memuat data…</div>;
   }
 
   async function approve(invoiceId: string) {
@@ -108,7 +108,7 @@ export default function PgnPortal() {
   const totalDisetujui = approved.reduce((s, i) => s + i.amount, 0);
 
   return (
-    <main className="mx-auto max-w-[1180px] px-6 py-10">
+    <main className="mx-auto max-w-[1180px] px-4 py-8 sm:px-6 sm:py-10">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <SectionHead
           eyebrow="Portal PGN"

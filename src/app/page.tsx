@@ -35,13 +35,13 @@ const stages = [
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-[1180px] px-6 py-14">
-      <div className="mb-14 max-w-[62ch] border-b border-line pb-10">
+    <main className="mx-auto max-w-[1180px] px-4 py-10 sm:px-6 sm:py-14">
+      <div className="mb-10 max-w-[62ch] border-b border-line pb-8 sm:mb-14 sm:pb-10">
         <div className="mb-3 flex items-center gap-2 font-mono text-[11px] tracking-widest text-gas uppercase">
           <span className="inline-block h-px w-5 bg-gas" />
           Prototipe · ODP 352 Wholesale Business Case
         </div>
-        <h1 className="text-4xl leading-[1.15]">
+        <h1 className="text-[28px] leading-[1.2] sm:text-4xl sm:leading-[1.15]">
           Aktivasi Kopra Supplier Financing dengan PGN sebagai anchor baru
         </h1>
         <p className="mt-4 text-[16.5px] text-ink-soft">

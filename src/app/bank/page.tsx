@@ -21,7 +21,7 @@ export default function BankPortal() {
   }, [refresh]);
 
   if (!state) {
-    return <div className="mx-auto max-w-[1180px] px-6 py-14 text-ink-faint">Memuat data…</div>;
+    return <div className="mx-auto max-w-[1180px] px-4 py-10 sm:px-6 sm:py-14 text-ink-faint">Memuat data…</div>;
   }
 
   async function verify(financingId: string) {
@@ -78,7 +78,7 @@ export default function BankPortal() {
   const notifications = state.notifications.filter((n) => n.recipientRole === "bank");
 
   return (
-    <main className="mx-auto max-w-[1180px] px-6 py-10">
+    <main className="mx-auto max-w-[1180px] px-4 py-8 sm:px-6 sm:py-10">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <SectionHead
           eyebrow="Ops Bank Mandiri"
@@ -124,7 +124,7 @@ export default function BankPortal() {
                         placeholder="Alasan penolakan (opsional)"
                         value={rejectReason[f.id] ?? ""}
                         onChange={(e) => setRejectReason((prev) => ({ ...prev, [f.id]: e.target.value }))}
-                        className="w-48 rounded border border-line-strong bg-paper-raised px-2.5 py-1.5 text-[12.5px] outline-none focus:border-gas"
+                        className="w-full min-w-0 flex-1 rounded border border-line-strong bg-paper-raised px-2.5 py-1.5 text-[12.5px] outline-none focus:border-gas sm:w-48 sm:flex-none"
                       />
                       <button
                         disabled={busyId === f.id}
